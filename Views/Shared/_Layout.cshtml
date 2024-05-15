@@ -16,9 +16,10 @@
       </a>
 
       <ul class="nav nav-pills">
-        <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">ToDo's</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Add ToDo</a></li>
+        <li class="nav-item">@Html.ActionLink("Add Todo", "Index", "Add", new { area = "" }, new { @class = "nav-link" })</li>
+        <li class="nav-item">@Html.ActionLink("Edit Todo", "Index", "Edit", new { area = "", id = 1 }, new { @class = "nav-link" })</li>
+        <li class="nav-item">@Html.ActionLink("Delete Todo", "Index", "Delete", new { area = "", id = 1 }, new { @class = "nav-link" })</li>
+        
       </ul>
     </header>
     <div class="container">

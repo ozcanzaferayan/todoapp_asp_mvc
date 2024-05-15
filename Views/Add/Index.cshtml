@@ -1,0 +1,55 @@
+@model todoapp.Models.Todo
+
+@{
+    ViewBag.Title = "Create Todo";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Ensure you have a layout with Bootstrap CSS included
+}
+
+<h2>Create Todo</h2>
+
+<form method="post" action="@Url.Action("Index", "Add")" class="form-horizontal">
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <label for="Title" class="col-sm-2 control-label">Title</label>
+        <div class="col-sm-10">
+            <input type="text" id="Title" name="Title" value="@Model.Title" class="form-control" />
+            @if (ViewData.ModelState["Title"]?.Errors.Count > 0)
+            {
+                <span class="text-danger">@ViewData.ModelState["Title"].Errors[0].ErrorMessage</span>
+            }
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="Description" class="col-sm-2 control-label">Description</label>
+        <div class="col-sm-10">
+            <textarea id="Description" name="Description" class="form-control" rows="4">@Model.Description</textarea>
+            @if (ViewData.ModelState["Description"]?.Errors.Count > 0)
+            {
+                <span class="text-danger">@ViewData.ModelState["Description"].Errors[0].ErrorMessage</span>
+            }
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" id="IsComplete" name="IsComplete" @(Model.IsComplete ? "checked" : "") />
+                    Is Complete
+                </label>
+            </div>
+            @if (ViewData.ModelState["IsComplete"]?.Errors.Count > 0)
+            {
+                <span class="text-danger">@ViewData.ModelState["IsComplete"].Errors[0].ErrorMessage</span>
+            }
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-primary">Create</button>
+        </div>
+    </div>
+</form>

@@ -2,21 +2,21 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using todoapp.Models;
+using todoapp.Data;
 
 #nullable disable
 
 namespace todoapp.Migrations
 {
-    [DbContext(typeof(BloggingContext))]
-    partial class BloggingContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(ApplicationDbContext))]
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.5");
 
-            modelBuilder.Entity("Blog", b =>
+            modelBuilder.Entity("todoapp.Models.Blog", b =>
                 {
                     b.Property<int>("BlogId")
                         .ValueGeneratedOnAdd()
@@ -31,7 +31,7 @@ namespace todoapp.Migrations
                     b.ToTable("Blogs");
                 });
 
-            modelBuilder.Entity("Post", b =>
+            modelBuilder.Entity("todoapp.Models.Post", b =>
                 {
                     b.Property<int>("PostId")
                         .ValueGeneratedOnAdd()
@@ -55,9 +55,31 @@ namespace todoapp.Migrations
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("Post", b =>
+            modelBuilder.Entity("todoapp.Models.Todo", b =>
                 {
-                    b.HasOne("Blog", "Blog")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsComplete")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Todos");
+                });
+
+            modelBuilder.Entity("todoapp.Models.Post", b =>
+                {
+                    b.HasOne("todoapp.Models.Blog", "Blog")
                         .WithMany("Posts")
                         .HasForeignKey("BlogId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -66,7 +88,7 @@ namespace todoapp.Migrations
                     b.Navigation("Blog");
                 });
 
-            modelBuilder.Entity("Blog", b =>
+            modelBuilder.Entity("todoapp.Models.Blog", b =>
                 {
                     b.Navigation("Posts");
                 });

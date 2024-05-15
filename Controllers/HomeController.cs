@@ -1,26 +1,27 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using todoapp.Models;
+using Microsoft.EntityFrameworkCore;
+using todoapp.Data;
+using todoapp.ViewModels;
 
-namespace todoapp.Controllers;
 
-public class HomeController : Controller
-{
-    private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
+public class HomeController : Controller {
+    
+    private readonly ApplicationDbContext db;
+    public HomeController(ApplicationDbContext db)
     {
-        _logger = logger;
+        this.db = db;
     }
-
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View();
-    }
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        var todos = await db.Todos.ToListAsync();
+        var blogs = await db.Blogs.Include(b => b.Posts).ToListAsync();
+        var viewModel = new HomeViewModel
+        {
+            Todos = todos,
+            Blogs = blogs
+        };
+
+        return View(viewModel);
     }
 }

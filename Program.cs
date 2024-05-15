@@ -1,10 +1,13 @@
-    using System;
-using System.Linq;
-using todoapp.Models;
+using Microsoft.EntityFrameworkCore;
+using todoapp.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+// Add DbContext
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 var app = builder.Build();
 
@@ -18,38 +21,29 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
-
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+// Ensure database is created and seed data is added
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    try
+    {
+        SeedData.Initialize(services);
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred seeding the DB.");
+    }
+}
 
 
-// Create
-// Console.WriteLine("Inserting a new blog");
-// db.Add(new Blog { Url = "https://www.google.com.tr" });
-// db.SaveChanges();
-
-
-
-// // Read
-
-
-// // Update
-// Console.WriteLine("Updating the blog and adding a post");
-// blog.Url = "https://devblogs.microsoft.com/dotnet";
-// blog.Posts.Add(
-//     new Post { Title = "Hello World", Content = "I wrote an app using EF Core!" });
-// db.SaveChanges();
-
-// // Delete
-// Console.WriteLine("Delete the blog");
-// db.Remove(blog);
-// db.SaveChanges();
 
 app.Run();

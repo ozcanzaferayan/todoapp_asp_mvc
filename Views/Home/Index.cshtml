@@ -1,8 +1,30 @@
-﻿@{
+﻿@model todoapp.ViewModels.HomeViewModel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Hoş Geldiniz !</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h1>Todo List</h1>
+<ul>
+    @foreach (var todo in Model.Todos)
+    {
+        <li>@todo.Title @todo.Title: @todo.Description</li>
+    }
+</ul>
+
+<h1>Blog List</h1>
+    <ul>
+        
+        @foreach (var blog in Model.Blogs)
+        {
+            
+            <li>@blog.BlogId @blog.Url</li>
+            <ul>
+                
+                @foreach (var post in blog.Posts){
+                    <p>@post</p>
+                  <li>@post.Title @post.Content</li>
+                }
+            </ul>
+        }
+    </ul>
