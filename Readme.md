@@ -5,17 +5,16 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-
-<h3 align="center">DOTNET CORE MVC TODO APP</h3>
-
+  <h3 align="center">DOTNET CORE MVC TODO APP</h3>
   <p align="center">
     Todo App using .NET Core MVC
   </p>
 </div>
-
 <!-- ABOUT THE PROJECT -->
 
 ## About The Project
+
+[![Product Name Screen Shot][product-screenshot]](https://example.com)
 
 There are many great todo apps available on GitHub, however, I didn't find one that really suit my needs so I created this enhanced one. I want to create a simple todo app using .NET Core MVC. The app will have the following features:
 
@@ -38,7 +37,7 @@ This is an example of how to list things you need to use the software and how to
 
 - .NET Core SDK: https://dotnet.microsoft.com/en-us/download
 
-### Usage
+### Installation
 
 1. Clone the repo
    ```sh
@@ -68,7 +67,7 @@ This is an example of how to list things you need to use the software and how to
 [license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
-[product-screenshot]: images/screenshot.png
+[product-screenshot]: art/index.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
